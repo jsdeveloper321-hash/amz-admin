@@ -13,13 +13,13 @@ use Hash;
 
 class AuthController extends Controller
 {
-   
+
 
 public function login(Request $request)
     {
-        
-      
-        
+
+
+
         // Step 1: Validation
         $validator = Validator::make($request->all(), [
             'email'    => 'required|email',
@@ -43,40 +43,40 @@ public function login(Request $request)
             return $this->sendError([], 'Invalid password', [], [], 401);
         }
 
-        
+
         $data = $user->toArray();
-        
-                  
-        
-        
+
+
+
+
             // ✅ Image logic (important part)
     if (!empty($user->image)) {
-        $data['image'] = url("/") . "/" . "public/uploads/users/" .$user->image;
-     
+        $data['image'] = public_path("/uploads/users/") .$user->image;
+
     } else {
         $data['image'] = 'null';
-       
+
     }
-        
+
       $request_duty = DB::table('request_duty')->where('user_id',$user->id)->orderBy('id', 'desc')->first();
-    
-      
+
+
      if($request_duty){
         $data['rpm']= $request_duty->rpm;
-        
-          $data['rating'] = $request_duty->rating; 
+
+          $data['rating'] = $request_duty->rating;
      }else{
          $data['rpm'] = '0';
-          $data['rating'] = '0'; 
+          $data['rating'] = '0';
      }
-        
-        
-        
-        
-        
+
+
+
+
+
        $data['token'] = $user->createToken('MyApp')->accessToken;
-        
-         
+
+
 
         return $this->sendResponse(
             $data,
@@ -166,7 +166,7 @@ public function signup(Request $request)
     ]);
 
 
-$data = $user->toArray();   
+$data = $user->toArray();
 
 $success = [
     'user_data' => $data,
@@ -234,45 +234,45 @@ public function verifyOtp(Request $request)
        // Authenticating user based on the access token
         if (!Auth::guard('api')->check()) {
             return $this->sendError($result = null, $message = 'Unauthorized.', $notification = null, $error = null, $respose_code = 200);
-        }        
-        
+        }
+
         $user = Auth::guard('api')->user();
-        
+
        if($user){
        if (!empty($user->image)) {
-       $user->image = url("/") . "/" . "public/uploads/users/" .$user->image;
-     
+       $user->image = url("/uploads/users/") .$user->image;
+
      } else {
         $user->image = 'null';
-       
+
     }
-    
+
     $request_duty = DB::table('request_duty')->where('user_id',$user->id)->orderBy('id', 'desc')->first();
      if($request_duty){
-        $user->rating = $request_duty->rating; 
+        $user->rating = $request_duty->rating;
          $user->rpm = $request_duty->rpm;
      }else{
-           $user->rating = ''; 
-        $user->rpm = '0'; 
+           $user->rating = '';
+        $user->rpm = '0';
      }
-     
-    
-    
-            
-            
+
+
+
+
+
             //  $user->image = url("/") . "/" . "public/uploads/users/" .$user->image;
               $success['token'] = '';
-              $success['user_data'] = $user; 
-           
+              $success['user_data'] = $user;
+
             return $this->sendResponse($result = $success, $message = 'Profile retrive successfully.', $notification = null, $error = null, $respose_code = 200);
         }else{
             return $this->sendError($result = null, $message = 'User not found.', $notification = null, $error = null, $respose_code = 200);
         }
-        
+
     }
-    
-  
-  
+
+
+
   public function forgotPassword(Request $request)
 {
     // Step 1: Validation
@@ -338,13 +338,13 @@ public function verifyOtp(Request $request)
     );
 }
 
-  
-    
-    
-  
+
+
+
+
     public function createNewPassword(Request $request)
     {
-        $user_id = $request->input('user_id'); 
+        $user_id = $request->input('user_id');
         // Authenticating user based on the access token
         // if (!Auth::guard('api')->check()) {
         //     return $this->sendError($result = null, $message = 'Obehörig.', $notification = null, $error = null, $respose_code = 200);
@@ -363,7 +363,7 @@ public function verifyOtp(Request $request)
         }
 
         // $user = Auth::guard('api')->user();
-        
+
 
         // Check if the old password matches the user's current password
         // if (!Hash::check($request->old_password, $user->password)) {
@@ -373,7 +373,7 @@ public function verifyOtp(Request $request)
         // Update user's password
         // $user->password = bcrypt($request->password);
         // $user->save();
-        
+
         $hashedPassword = bcrypt($request->password);
 
     // Update user's password in the database using DB facade
@@ -383,9 +383,9 @@ public function verifyOtp(Request $request)
 
         return $this->sendResponse($result = null, $message = 'The password has been updated.', $notification = null, $error = null, $respose_code = 200);
     }
-    
-    
-    
+
+
+
    public function changePassword(Request $request)
     {
         // Authenticating user based on the access token
@@ -406,7 +406,7 @@ public function verifyOtp(Request $request)
         }
 
         $user = Auth::guard('api')->user();
-        
+
 
         // Check if the old password matches the user's current password
         if (!Hash::check($request->old_password, $user->password)) {
@@ -421,9 +421,9 @@ public function verifyOtp(Request $request)
     }
 
 
-   
-   
-    
+
+
+
     public function updateProfile(Request $request)
 {
     // Authenticate the user
@@ -440,21 +440,21 @@ public function verifyOtp(Request $request)
         $image->move(public_path('uploads/users'), $imageName);
         $data['image'] = $imageName;
     }
-    
+
     DB::table('users')->where('id', $user->id)->update($data);
-    
-    
-    
+
+
+
       $userss = DB::table('users')->where('id', $user->id)->first();
-    
-    
-    
+
+
+
      if (!empty($userss->image)) {
-       $userss->image = url("/") . "/" . "public/uploads/users/" .$user->image;
-     
+       $userss->image = url("uploads/users/") .$user->image;
+
     } else {
         $userss->image = 'null';
-       
+
     }
 
 
@@ -478,11 +478,11 @@ public function verifyOtp(Request $request)
 
 
 
-    
-    
-    
-    
-   
+
+
+
+
+
 
     public function passwordReset(Request $request)
     {
@@ -496,18 +496,18 @@ public function verifyOtp(Request $request)
             return $this->sendError($result = null, $message = @$validator_error[0], $notification = null, $error = $validator_error, $respose_code = 200);
         }
 
-        $identity = $request->input('identity'); 
+        $identity = $request->input('identity');
 
         // Attempt authentication with email
         if (filter_var($identity, FILTER_VALIDATE_EMAIL)) {
             $credentials = ['email' => $identity];
 
             $user = User::where('email', $identity)->first();
-            
-            
-            
+
+
+
         } else {
-            
+
           //  echo 'sd';die;
             // Attempt authentication with mobile number and country code
             $parts = explode('-', $identity);
@@ -544,10 +544,10 @@ public function verifyOtp(Request $request)
         $futureDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' +15 minutes'));
 
         $user->otp_time = $futureDateTime;
-        
+
 
         $user->save();
-        
+
         $subject = "Your OTP verification code";
 
 // Email recipient
@@ -581,17 +581,17 @@ mail($to, $subject, $body, $headers);
 
         return $this->sendResponse($result = null, $message = 'otp send successfully.', $notification = null, $error = null, $respose_code = 200);
     }
-    
-    
-    
-     
-    
 
 
 
 
 
-   
+
+
+
+
+
+
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -601,12 +601,12 @@ mail($to, $subject, $body, $headers);
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
-    
+
     public function delete_acc(){
      if (!Auth::guard('api')->check()) {
             return $this->sendError($result = null, $message = 'Obehörig.', $notification = null, $error = null, $respose_code = 200);
-        }        
-        
+        }
+
    $user = Auth::guard('api')->user();
     if (!$user) {
         return $this->sendError([], 'Användaren hittades inte.', [], [], 404);
@@ -616,8 +616,8 @@ mail($to, $subject, $body, $headers);
 
     return $this->sendResponse([], 'Användaren har raderats.', [], [], 200);
     }
-    
-  
-    
-    
+
+
+
+
 }

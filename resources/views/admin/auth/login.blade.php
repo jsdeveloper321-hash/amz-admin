@@ -67,7 +67,7 @@
         @media(max-width:767px){
   .login-card {
             width: 95% !important;
-           
+
         }
 }
     </style>
@@ -76,7 +76,7 @@
 
 <div class="login-card text-center">
     <!-- Logo -->
-    
+
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
@@ -88,9 +88,9 @@
         @endforeach
     </div>
 @endif
-    
-    
-    <img src="{{ asset('public/assets/images/logo.png') }}" alt="Logo">
+
+
+    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo">
 
     <h5 class="mb-4">Login</h5>
     <form action="{{ route('admin.login.post') }}" method="POST">
@@ -114,7 +114,7 @@
         </div>
        <input type="password" name="password" class="form-control" placeholder="Password" required>
     </div>
-    
+
       <!-- User Type -->
     <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -128,7 +128,7 @@
             <option value="Admin">Admin</option>
         </select>
     </div>
-    
+
 
     <div class="text-right mb-3">
         <!--<a href="#" class="forgot">Forgot password?</a>-->

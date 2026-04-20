@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://refound.com.au/amz_pro'),
+    'url' => env('APP_URL', 'https://amzprodriver.com'),
 
     'asset_url' => env('ASSET_URL'),
 

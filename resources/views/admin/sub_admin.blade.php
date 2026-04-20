@@ -38,12 +38,12 @@
     margin: 2px;
     border: 1px solid #ddd;
   }
- 
-    </style>  
-  
+
+    </style>
+
     <div class="page-wrapper">
 
-   
+
 
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -51,7 +51,7 @@
         <a href="{{route('admin.add_sub_admin')}}" class="btn btn-danger">+ Add</a>
     </div>
 
-    
+
 
     <!-- TABLE -->
     <div class="card card-custom">
@@ -71,13 +71,13 @@
     <tbody>
 
         @forelse($admins as $val)
-        
+
   <tr>
-      
+
         <td>
-    <img src="{{ asset('public/uploads/admins/' . $val->profile_image) }}" 
-         alt="Profile Image" 
-         width="50" height="50" 
+    <img src="{{ asset('uploads/admins/' . $val->profile_image) }}"
+         alt="Profile Image"
+         width="50" height="50"
          style="object-fit:cover; border-radius:50%;">
 </td>
         <td>{{ $val->user_name }}</td>
@@ -86,16 +86,16 @@
         <td>{{ $val->created_at }}</td>
         <td>
     <a href="{{ route('admin.view', $val->id) }}" class="btn btn-sm btn-primary">View</a>
-</td>        
-                    
-            
+</td>
 
-        
 
-               
+
+
+
+
             </tr>
         @empty
-           
+
         @endforelse
 
     </tbody>
@@ -103,7 +103,7 @@
 
         </div>
     </div>
-   
+
 </div>
 
    </div>
@@ -126,10 +126,10 @@ L.marker([40.73,-73.93]).addTo(map).bindPopup("Current Location");
 </script>
 
 
-<script src="https://cdn.datatables.net/2.3.6/js/dataTables.bootstrap5.js"></script>   
-  <script src="https://cdn.datatables.net/2.3.6/js/dataTables.js"></script>  
- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>  
- 
+<script src="https://cdn.datatables.net/2.3.6/js/dataTables.bootstrap5.js"></script>
+  <script src="https://cdn.datatables.net/2.3.6/js/dataTables.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
 <script>
 $(document).ready(function () {
     new DataTable('#offer', {

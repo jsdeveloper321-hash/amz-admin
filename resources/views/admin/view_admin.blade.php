@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="{{ asset('public/uploads/admins/' . $admin->profile_image) }}" 
+                    <img src="{{ asset('uploads/admins/' . $admin->profile_image) }}"
                          width="100" height="100" style="border-radius:50%;">
                 </div>
                 <div class="col-md-9">

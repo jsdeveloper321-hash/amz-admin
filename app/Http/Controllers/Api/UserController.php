@@ -15,11 +15,11 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
 use App\Services\FmcsaService;
 
-  
+
 class UserController extends Controller {
-    
-    
-    
+
+
+
     public function check(Request $request)
 {
     $request->validate([
@@ -81,7 +81,7 @@ class UserController extends Controller {
             'message' => 'No carrier found for this docket number'
         ]);
     }
-  
+
     $carrier   = $data['content'][0]['carrier'] ?? [];
     $authority = $data['content'][0]['carrier']['carrierOperation'] ?? [];
 
@@ -95,17 +95,17 @@ class UserController extends Controller {
     ]);
 }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
    public function  get_rating(Request $request) {
 
         // $categories = DB::table('privacy_policies')->whereNull('pp_deleted_at')->where('pp_admin_status', 'ACTIVE')->get();
@@ -116,10 +116,10 @@ class UserController extends Controller {
         } else {
             return $this->sendError($result = [], $message = 'rating found.', $notification = [], $error = [], $respose_code = 200);
         }
-    } 
-    
-    
-    
+    }
+
+
+
  public function add_duty_request(Request $request)
 {
     $user = Auth::guard('api')->user();
@@ -205,8 +205,8 @@ DB::table('users')
     );
 }
 
-    
-    
+
+
  public function change_duty(Request $request)
 {
     $request->validate([
@@ -242,18 +242,18 @@ DB::table('users')
         'start_time'=> $now,
         'created_at'=> $now,
          'updated_at'=> $now
-        
+
     ]);
 
     return $this->sendResponse([], 'Duty status changed', [], [], 200);
-}   
-    
-    
-    
-    
-    
-    
-    
+}
+
+
+
+
+
+
+
  public function duty_log_summary(Request $request)
 {
     $driver = Auth::guard('api')->user();
@@ -305,9 +305,9 @@ DB::table('users')
         200
     );
 }
-   
-    
-    
+
+
+
  public function get_current_duty_request(Request $request)
 {
     $user = Auth::guard('api')->user();
@@ -329,8 +329,8 @@ DB::table('users')
 
     return $this->sendResponse($requestDuty, 'Duty request fetched successfully', [], [], 200);
 }
-   
-    
+
+
 
 public function add_duty_video(Request $request)
 {
@@ -366,7 +366,7 @@ public function add_duty_video(Request $request)
     ]);
 
     if ($insertedId) {
-        $video_url = url('public/uploads/duty_videos/' . $video_name);
+        $video_url = url('uploads/duty_videos/' . $video_name);
 
         return $this->sendResponse([
             'id'         => $insertedId,
@@ -378,7 +378,7 @@ public function add_duty_video(Request $request)
     return $this->sendError([], 'Failed to upload video.', [], [], 500);
 }
 
- 
+
  public function get_duty_videos(Request $request)
 {
     $validator = Validator::make($request->all(), [
@@ -400,19 +400,19 @@ public function add_duty_video(Request $request)
 
     // Full URL add karna
     $videos = $videos->map(function ($item) {
-        $item->video_url = url('public/uploads/duty_videos/' . $item->video_path);
+        $item->video_url = url('uploads/duty_videos/' . $item->video_path);
         return $item;
     });
 
     return $this->sendResponse($videos, 'Videos fetched successfully.', [], [], 200);
 }
 
- 
- 
+
+
 
 public function get_nearby_users(Request $request)
 {
-    
+
 
     $lat     = $request->latitude;
     $lon     = $request->longitude;
@@ -474,18 +474,18 @@ public function get_nearby_users(Request $request)
     );
 }
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    
+
+
+
+
+
+
+
+
+
+
+
+
     public function get_announcements(Request $request)
 {
     $userId = $request->user_id;
@@ -508,10 +508,10 @@ public function get_nearby_users(Request $request)
             $query->whereRaw("
                 (
                     6371 * acos(
-                        cos(radians(?)) 
-                        * cos(radians(latitude)) 
-                        * cos(radians(longitude) - radians(?)) 
-                        + sin(radians(?)) 
+                        cos(radians(?))
+                        * cos(radians(latitude))
+                        * cos(radians(longitude) - radians(?))
+                        + sin(radians(?))
                         * sin(radians(latitude))
                     )
                 ) <= radius
@@ -527,10 +527,10 @@ public function get_nearby_users(Request $request)
         return $this->sendError([], 'No announcements found.', [], [], 200);
     }
 }
-    
-    
- 
- 
+
+
+
+
  public function get_offers(Request $request)
 {
     $driverId = $request->user_id;
@@ -572,9 +572,9 @@ public function get_nearby_users(Request $request)
         return $this->sendError([], 'No offers found.', [], [], 200);
     }
 }
- 
- 
- 
+
+
+
  /*------------------------------------------end api------------------------------------------------------------*/
  /*------------------------------------------------------------------------------------------------------*/
  /*------------------------------------------------------------------------------------------------------*/
@@ -582,11 +582,11 @@ public function get_nearby_users(Request $request)
  /*------------------------------------------------------------------------------------------------------*/
  /*------------------------------------------------------------------------------------------------------*/
  /*------------------------------------------------------------------------------------------------------*/
- 
- 
- 
- 
- 
+
+
+
+
+
 public function add_invoice(Request $request)
 {
     $user = Auth::guard('api')->user();
@@ -656,20 +656,20 @@ public function add_invoice(Request $request)
 
     return $this->sendResponse([
         'invoice' => $invoice,
-        'pdf_url' => url('public/' . $invoice->pdf_path),
-        'qr_url'  => url('public/' . $invoice->qr_path),
+        'pdf_url' => url(public_path($invoice->pdf_path)),
+        'qr_url'  => url(public_path($invoice->qr_path)),
         'qr_code' => $invoice->qr_code, // send the code for reference
     ], 'Invoice created with random QR code', [], [], 200);
 }
- 
 
- 
- 
- 
- 
+
+
+
+
+
  public function get_invoices_by_user(Request $request)
 {
-    
+
      $user = Auth::guard('api')->user();
       $userId = $user->id;
 
@@ -698,8 +698,8 @@ public function add_invoice(Request $request)
             'net_amount'   => $invoice->net_amount,
             'qr_code'      => $invoice->qr_code,
              'accessories_addons'      => $invoice->accessories_addons,
-            'pdf_url'       => $invoice->pdf_path ? url('public/' . $invoice->pdf_path) : null,
-            'qr_url'        => $invoice->qr_path ? url('public/' . $invoice->qr_path) : null,
+            'pdf_url'       => $invoice->pdf_path ? url(public_path($invoice->pdf_path)) : null,
+            'qr_url'        => $invoice->qr_path ? url(public_path($invoice->qr_path)) : null,
             'created_at'   => $invoice->created_at,
         ];
     });
@@ -707,12 +707,12 @@ public function add_invoice(Request $request)
     return $this->sendResponse($data, 'Invoices fetched successfully', [], [], 200);
 }
 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
   public function add_invoice_image(Request $request)
 {
     // Validate request (only check required, not file type)
@@ -729,7 +729,7 @@ public function add_invoice(Request $request)
 
     if ($request->hasFile('image')) {
         $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension(); 
+        $extension = $file->getClientOriginalExtension();
         $file_name = uniqid() . '_' . time() . '.' . $extension;
 
         // Upload folder: public/uploads/users
@@ -739,15 +739,15 @@ public function add_invoice(Request $request)
     // Save in DB (only file name, not object)
     $inserted = DB::table('invoices')->insertGetId([
         'user_id'     => $request->input('user_id'),
-        'pdf_path' => $file_name, 
+        'pdf_path' => $file_name,
         'created_at' => now(),
         'updated_at' => now()
-       
+
     ]);
 
     if ($inserted) {
         // Full URL response
-        $file_url = url('public/uploads/invoices/' . $file_name);
+        $file_url = url(public_path('uploads/invoices/') . $file_name);
 
         return $this->sendResponse([
             'id'       => $inserted,
@@ -758,12 +758,12 @@ public function add_invoice(Request $request)
         return $this->sendError([], 'Failed to upload file.', [], [], 500);
     }
 }
- 
-  
-  
- 
- 
- 
+
+
+
+
+
+
  /*==============================================================================================================================*/
   /*==============================================================================================================================*/
    /*==============================================================================================================================*/
@@ -774,12 +774,12 @@ public function add_invoice(Request $request)
         /*==============================================================================================================================*/
          /*==============================================================================================================================*/
           /*==============================================================================================================================*/
- 
- 
- 
- 
-        
-    
-    
+
+
+
+
+
+
+
 
 }
