@@ -60,7 +60,7 @@
     <strong style="color: var(--text);">Important:</strong> This document is a template. Have it reviewed by a qualified attorney before use. Replace bracketed placeholders with your legal entity name, address, and contact information.
 </div>
 
-<p style="color: var(--text);">These Terms of Service (“Terms”) govern your access to and use of the Amazing Pro Drivers website, mobile application, and related services (the “Services”) provided by [YOUR LEGAL ENTITY NAME] (“we,” “us,” or “our”). By creating an account, downloading the app, or using the Services, you agree to these Terms and our <a href="privacy-policy.html">Privacy Policy</a>. If you do not agree, do not use the Services.</p>
+<p style="color: var(--text);">These Terms of Service (“Terms”) govern your access to and use of the Amazing Pro Drivers website, mobile application, and related services (the “Services”) provided by [YOUR LEGAL ENTITY NAME] (“we,” “us,” or “our”). By creating an account, downloading the app, or using the Services, you agree to these Terms and our <a href="{{ url('privacy-policy') }}">Privacy Policy</a>. If you do not agree, do not use the Services.</p>
 
 <h2>1. Eligibility</h2>
 <p>You must be at least 18 years old and legally able to enter a binding contract. If you use the Services on behalf of a company, you represent that you have authority to bind that company. Commercial motor vehicle operators must comply with all applicable laws and employer policies at all times.</p>
