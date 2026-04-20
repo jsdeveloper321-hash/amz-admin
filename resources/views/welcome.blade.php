@@ -561,16 +561,16 @@
         <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem;">
             App store links go here when your build is live. For now, contact your community organizer or email <a href="mailto:community@amazingprodrivers.example" style="color: var(--accent);">community@amazingprodrivers.example</a> (replace with your real address).
         </p>
-        <a href="privacy-policy.html" class="btn btn-ghost" style="margin-right: 0.5rem;">Privacy Policy</a>
-        <a href="terms-of-service.html" class="btn btn-ghost">Terms of Service</a>
+        <a href="{{ route('privacy-policy') }}" class="btn btn-ghost" style="margin-right: 0.5rem;">Privacy Policy</a>
+        <a href="{{ route('terms-of-service') }}" class="btn btn-ghost">Terms of Service</a>
     </section>
 </main>
 
 <footer>
     <nav aria-label="Legal">
-        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="{{ route('privacy-policy') }}">Privacy Policy</a>
         <span aria-hidden="true"> · </span>
-        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="{{ route('terms-of-service') }}">Terms of Service</a>
     </nav>
     <p>© <span id="y"></span> Amazing Pro Drivers. Community for professional truck drivers.</p>
 </footer>
