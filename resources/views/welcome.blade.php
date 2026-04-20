@@ -434,8 +434,8 @@
         <a href="#letter">Letter</a>
         <a href="#community">Community</a>
         <a href="#app">The app</a>
-        <a href="privacy-policy.html">Privacy</a>
-        <a href="terms-of-service.html">Terms</a>
+        <a href="{{ url('privacy-policy') }}">Privacy</a>
+        <a href="{{ url('terms-of-service') }}">Terms</a>
         <a href="#download" class="btn btn-primary">Get the app</a>
     </nav>
 </header>
